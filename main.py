@@ -62,6 +62,7 @@ def convert_morse(morse):
 def on_key_release(key): 
     global continue_reading
     global is_terminated
+
     if key == keyboard.Key.tab: # Stop the current reading
         continue_reading = False
     elif key == keyboard.Key.shift_l: # Terminate program
@@ -82,12 +83,12 @@ while is_terminated:
 
     # Reading single character loop
     while continue_reading:
-        with keyboard.Listener(on_press = on_key_press) as press_listener: #setting code for listening key-press
+        with keyboard.Listener(on_press = on_key_press) as press_listener: 
             press_listener.join()
 
         t = time.time() # Reading current time
 
-        with keyboard.Listener(on_release = on_key_release) as release_listener: #setting code for listening key-release
+        with keyboard.Listener(on_release = on_key_release) as release_listener: 
             release_listener.join()
 
     print(convert_morse(code_morse))
