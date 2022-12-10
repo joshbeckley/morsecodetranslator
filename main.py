@@ -55,19 +55,18 @@ def convert_morse(morse):
     '--..--':',',
     '..--..':'?',
 }
-
-    character = codes[morse]
+    character = codes[morse] # Returns the character of the corresponding morse code
     return character
 
     
 def on_key_release(key): 
     global continue_reading
     global is_terminated
-    if key == keyboard.Key.tab: # Stop the reading
+    if key == keyboard.Key.tab: # Stop the current reading
         continue_reading = False
     elif key == keyboard.Key.shift_l: # Terminate program
         is_terminated = False
-    else:
+    else: # Take keypress time
         time_taken = round(time.time() - t, 2) # Total time taken from onpress to onrelease
 
         # Adding to the message
@@ -78,8 +77,10 @@ def on_key_release(key):
 def on_key_press(key):
     return False # Stop the listener
 
+# Entire program loop
 while is_terminated:
 
+    # Reading single character loop
     while continue_reading:
         with keyboard.Listener(on_press = on_key_press) as press_listener: #setting code for listening key-press
             press_listener.join()
@@ -91,6 +92,7 @@ while is_terminated:
 
     print(convert_morse(code_morse))
 
+    # Reset the values
     code_morse = ""
     continue_reading = True
     
